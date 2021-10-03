@@ -1,0 +1,330 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Acord Uganda</title>
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap-datepicker/css/bootstrap-datepicker.css}"/>
+    <link th:rel="stylesheet" th:href="@{/assets/bootstrap-datepicker/css/bootstrap-datepicker.standalone.css}"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/webjars/font-awesome/5.11.2/css/all.css} "/>
+    <link th:rel="stylesheet" th:href="@{/assets/jquery-steps/jquery.steps.css} "/>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/beneficiary/list">Acord Uganda</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Form
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/beneficiary/list">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row mt-3">
+        <div class="col-md">
+            <form class="form-inline" id="beneficiary-form" action="/beneficiary/register" method="post" th:object="${beneficiary}">
+                <h3>Personal</h3>
+                <fieldset>
+                    <legend>Beneficiary's Personal Information</legend>
+                    <div class="form-row">
+                        <div class="col-md">
+                            <label for="firstName">FIRST NAME: *</label>
+                            <input id="firstName" name="firstName" th:field="*{firstName}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="givenName">GIVEN NAME: *</label>
+                            <input id="givenName" name="givenName" th:field="*{givenName}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="lastName">LAST NAME: *</label>
+                            <input id="lastName" name="lastName" th:field="*{lastName}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="age">CLIENT'S AGE: *</label>
+                            <input id="age" name="age" th:field="*{age}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="email">EMAIL ADDRESS: </label>
+                            <input id="email" name="email" th:field="*{email}" type="text" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="contact">PRI PHONE-NUMBER: *</label>
+                            <input id="contact" name="contact" th:field="*{contact}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="phone">ALT PHONE-NUMBER: *</label>
+                            <input id="phone" name="phone" th:field="*{phone}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="gender" class="float-left">CLIENT' GENDER: *</label><br/>
+                            <select id="gender" name="gender" th:field="*{gender}" class="btn btn-danger">
+                                <option th:each="gender : ${T(com.acord.enums.Gender).values()}"
+                                        th:value="${gender.description}" th:text="${gender.description}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <h3>Profile</h3>
+                <fieldset>
+                    <legend>Beneficiary's Profile Information</legend>
+                    <div class="form-row">
+                        <div class="col-md">
+                            <label for="district">DISTRICT: *</label>
+                            <input id="district" name="district" th:field="*{district}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="subCounty">SUB-COUNTY: *</label>
+                            <input id="subCounty" name="subCounty" th:field="*{subCounty}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="parish">PARISH: *</label>
+                            <input id="parish" name="parish" th:field="*{parish}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="village">VILLAGE: *</label>
+                            <input id="village" name="village" th:field="*{village}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dateOfFollowUp">FOLLOW-UP DATE: *</label>
+                            <input id="dateOfFollowUp" name="dateOfFollowUp" th:field="*{dateOfFollowUp}" type="date" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="healthFacility">HEALTH FACILITY: *</label>
+                            <input id="healthFacility" name="healthFacility" th:field="*{healthFacility}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="durationOnTreatment">TREATMENT DURATION: *</label>
+                            <input id="durationOnTreatment" name="durationOnTreatment" th:field="*{durationOnTreatment}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="actionToBeTaken">ACTION-TO-TAKE: *</label>
+                            <input id="actionToBeTaken" name="actionToBeTaken" th:field="*{actionToBeTaken}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="districtOfCurrentCare">CARE-DISTRICT: *</label>
+                            <input id="districtOfCurrentCare" name="districtOfCurrentCare" th:field="*{districtOfCurrentCare}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="subCountyOfCurrentCare">CARE-SUBCOUNTY: *</label>
+                            <input id="subCountyOfCurrentCare" name="subCountyOfCurrentCare" th:field="*{subCountyOfCurrentCare}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="comments">CARE-COMMENTS: </label>
+                            <input id="comments" name="comments" th:field="*{comments}" type="text" class="form-control" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="weight">CLIENT'S WEIGHT: *</label>
+                            <input id="weight" name="weight" th:field="*{weight}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md-auto">
+                            <label for="memberStatus" class="float-left">MEMBER STATUS: *</label><br/>
+                            <select id="memberStatus" name="memberStatus" th:field="*{memberStatus}" class="btn btn-danger">
+                                <option th:each="memberStatus : ${T(com.acord.enums.MemberStatus).values()}"
+                                        th:value="${memberStatus.description}" th:text="${memberStatus.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-auto">
+                            <label for="adherence" class="float-left">ADHERENCE: *</label><br/>
+                            <select id="adherence" name="adherence" th:field="*{adherence}" class="btn btn-danger">
+                                <option th:each="adherence : ${T(com.acord.enums.Adherence).values()}"
+                                        th:value="${adherence.description}" th:text="${adherence.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-auto">
+                            <label for="regimen" class="float-left">REGIMEN: *</label><br/>
+                            <select id="regimen" name="regimen" th:field="*{regimen}" class="btn btn-danger">
+                                <option th:each="regimen : ${T(com.acord.enums.Regimen).values()}"
+                                        th:value="${regimen.description}" th:text="${regimen.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-auto">
+                            <label for="regimenLine" class="float-left">REGIMEN-LINE: *</label><br/>
+                            <select id="regimenLine" name="regimenLine" th:field="*{regimenLine}" class="btn btn-danger">
+                                <option th:each="regimenLine : ${T(com.acord.enums.RegimenLine).values()}"
+                                        th:value="${regimenLine.description}" th:text="${regimenLine.description}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <h3>Data Collection</h3>
+                <fieldset>
+                  <legend>Data Collector's Information</legend>
+                    <div class="row">
+                        <div class="col-md">
+                            <label for="dataCollectorsName">DATA COLLECTOR'S NAME: *</label>
+                            <input id="dataCollectorsName" name="dataCollectorsName" th:field="*{dataCollectorsName}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dataCollectorsTitle">DATA COLLECTOR'S TITLE: *</label>
+                            <input id="dataCollectorsTitle" name="dataCollectorsTitle" th:field="*{dataCollectorsTitle}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dataCollectorsPhoneNumber">COLLECTOR'S CONTACT: *</label>
+                            <input id="dataCollectorsPhoneNumber" name="dataCollectorsPhoneNumber" th:field="*{dataCollectorsPhoneNumber}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dataAssessor">DATA ASSESSOR: *</label>
+                            <input id="dataAssessor" name="dataAssessor" th:field="*{dataAssessor}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dataEntrant">DATA ENTRANT: *</label>
+                            <input id="dataEntrant" name="dataEntrant" th:field="*{dataEntrant}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <h3>Fact File</h3>
+                <fieldset>
+                    <legend>Beneficiary's Facts Information</legend>
+                    <div class="row">
+                        <div class="col-md">
+                            <label for="icydTool">ICYD TOOL: *</label>
+                            <select id="icydTool" name="icydTool" th:field="*{icydTool}" class="btn btn-danger dropdown-toggle">
+                                <option th:each="icydTool : ${T(com.acord.enums.ICYDTool).values()}"
+                                        th:value="${icydTool.description}" th:text="${icydTool.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <label for="viralLoadTestDone">VL-TEST? *</label>
+                            <select id="viralLoadTestDone" name="viralLoadTestDone" th:field="*{viralLoadTestDone}" class="btn btn-danger dropdown-toggle">
+                                <option th:each="viralLoadTestDone : ${T(com.acord.enums.ViralTestDone).values()}"
+                                        th:value="${viralLoadTestDone.description}" th:text="${viralLoadTestDone.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <label for="followUpMeans">FOLLOW-UP: *</label>
+                            <select id="followUpMeans" name="followUpMeans" th:field="*{followUpMeans}" class="btn btn-danger dropdown-toggle">
+                                <option th:each="followUpMeans : ${T(com.acord.enums.FollowUpMeans).values()}"
+                                        th:value="${followUpMeans.description}" th:text="${followUpMeans.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <label for="successfullyContacted">CONTACTED? *</label>
+                            <select id="successfullyContacted" name="successfullyContacted" th:field="*{successfullyContacted}" class="btn btn-danger dropdown-toggle">
+                                <option th:each="successfullyContacted : ${T(com.acord.enums.Status).values()}"
+                                        th:value="${successfullyContacted.description}" th:text="${successfullyContacted.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <label for="onART">ON ART? *</label>
+                            <select id="onART" name="onART" th:field="*{onART}" class="btn btn-danger dropdown-toggle">
+                                <option th:each="onART : ${T(com.acord.enums.Status).values()}"
+                                        th:value="${onART.description}" th:text="${onART.description}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md">
+                            <label for="dateOfNextViralLoadTest">NEXT VL-TEST DATE: *</label>
+                            <input id="dateOfNextViralLoadTest" name="dateOfNextViralLoadTest" th:field="*{dateOfNextViralLoadTest}" type="date" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="houseHoldCode">HOUSEHOLD CODE: *</label>
+                            <input id="houseHoldCode" name="houseHoldCode" th:field="*{houseHoldCode}" type="text" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dateOfARTInitiation">ART INITIATION DATE: *</label>
+                            <input id="dateOfARTInitiation" name="dateOfARTInitiation" th:field="*{dateOfARTInitiation}" type="date" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dateOfLastClinicVisit">LAST CLINIC VISIT DATE: *</label>
+                            <input id="dateOfLastClinicVisit" name="dateOfLastClinicVisit" th:field="*{dateOfLastClinicVisit}" type="date" class="form-control required" autocomplete="off">
+                        </div>
+                        <div class="col-md">
+                            <label for="dateOfNextARTAppointment">NEXT ART APPOINTMENT: *</label>
+                            <input id="dateOfNextARTAppointment" name="dateOfNextARTAppointment" th:field="*{dateOfNextARTAppointment}" type="date" class="form-control required" autocomplete="off">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/jquery-steps/jquery.steps.min.js}"></script>
+<script th:src="@{/assets/jquery-validate/jquery.validate.min.js}"></script>
+<script th:src="@{/assets/bootstrap-datepicker/js/bootstrap-datepicker.js}"></script>
+
+<script>
+    var form = $("#beneficiary-form").show();
+
+    form.steps({
+        headerTag: "h3",
+        bodyTag: "fieldset",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            // Allways allow previous action even if the current form is not valid!
+            if (currentIndex > newIndex) {
+                return true;
+            }
+            // Needed in some cases if the user went back (clean up)
+            if (currentIndex < newIndex) {
+                // To remove error styles
+                form.find(".body:eq(" + newIndex + ") label.error").remove();
+                form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onStepChanged: function (event, currentIndex, priorIndex) {
+            // Used to skip the "Warning" step if the user is old enough.
+            if (currentIndex === 2 && Number($("#age-2").val()) >= 18) {
+                form.steps("next");
+            }
+            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+            if (currentIndex === 2 && priorIndex === 3) {
+                form.steps("previous");
+            }
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            form.submit();
+        }
+    }).validate({
+        errorPlacement: function errorPlacement(error, element) {
+            element.before(error);
+        },
+        rules: {
+            confirm: {
+                equalTo: "#password-2"
+            }
+        }
+    });
+</script>
+</body>
+</html>

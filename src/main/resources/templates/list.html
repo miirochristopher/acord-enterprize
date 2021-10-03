@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Acord Uganda</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/beneficiary/list">Acord Uganda</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/beneficiary/form">Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Clients</a>
+                    <span class="sr-only">(current)</span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-10 mt-5 mb-5">
+            <table id="example" class="table table-bordered" style="width: 100%">
+                <thead>
+                <tr>
+                    <th>FIRST NAME</th>
+                    <th>LAST NAME</th>
+                    <th>GENDER</th>
+                    <th>AGE</th>
+                    <th>CONTACT</th>
+                    <th>ADDRESS</th>
+                    <th>HEALTH FACILITY</th>
+                    <th>EDIT</th>
+                    <th>DELETE</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="beneficiary : ${beneficiaries.page}">
+                    <td th:text="${beneficiary.firstName}">FIRST NAME</td>
+                    <td th:text="${beneficiary.lastName}">LAST NAME</td>
+                    <td th:text="${beneficiary.gender}">GENDER</td>
+                    <td th:text="${beneficiary.age}">AGE</td>
+                    <td th:text="${beneficiary.contact}">CONTACT</td>
+                    <td th:text="${beneficiary.village}">ADDRESS</td>
+                    <td th:text="${beneficiary.healthFacility}">HEALTH FACILITY</td>
+                    <td><a class="btn btn-sm btn-primary" th:href="@{/beneficiary/edit/{id}(id=${beneficiary.id})}">Edit</a></td>
+                    <td><a class="btn btn-sm btn-danger" th:href="@{/beneficiary/delete/{id}(id=${beneficiary.id})}">Delete</a></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <nav aria-label="Page navigation" class="paging">
+                <ul class="pagination" th:if="${beneficiaries.page.totalPages > 1}">
+                    <li class="page-item" th:classappend="${!beneficiaries.paging.isPrevEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/?pageNumber=' + ${beneficiaries.paging.pageNumber - 1}}"
+                           tabindex="-1">Previous</a>
+                    </li>
+                    <th:block th:each="item : ${beneficiaries.paging.getItems()}">
+                        <li class="page-item" th:classappend="${item.index == beneficiaries.paging.pageNumber? 'active' : ''}"
+                            th:if="${item.pageItemType.name() == 'PAGE'}">
+                            <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
+                               th:text="${item.index}"></a>
+                        </li>
+                        <li class="page-item disabled" th:if="${item.pageItemType.name() == 'DOTS'}">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    </th:block>
+                    <li class="page-item" th:classappend="${!beneficiaries.paging.isNextEnabled()? 'disabled' : ''}">
+                        <a class="page-link" th:href="@{'/?pageNumber=' + ${beneficiaries.paging.pageNumber + 1}}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

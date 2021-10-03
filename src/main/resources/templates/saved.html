@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Acord Uganda</title>
+    <link th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " th:rel="stylesheet"/>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/beneficiary/list">Acord Uganda</a>
+        <button aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbarResponsive"
+                data-toggle="collapse" type="button">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/beneficiary/form">Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/beneficiary/list">Clients</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card align-items-center" style="width: w-100;">
+        <img alt="Card image cap" class="card-img-top" th:src="@{/images/logo-small.png}" th:class="img-responsive">
+        <div class="card-block text-center">
+            <h4 class="card-title">Beneficiary Registered</h4>
+            <p class="card-text">Successfully Registered Beneficiary!</p>
+        </div>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">FIRST NAME: <strong th:text="${beneficiary.firstName}"></strong></li>
+            <li class="list-group-item">LAST NAME:<strong th:text="${beneficiary.lastName}"></strong></li>
+            <li class="list-group-item">ADDRESS:<strong th:text="${beneficiary.village}"></strong></li>
+            <li class="list-group-item">CONTACT:<strong th:text="${beneficiary.contact}"></strong></li>
+        </ul>
+        <div class="card-block">
+            <a class="btn btn-sm btn-primary" th:href="@{/beneficiary/form}">ADD ANOTHER</a>
+            <a class="btn btn-sm btn-primary" th:href="@{/beneficiary/list}">VIEW CLIENTS</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -5,13 +5,14 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.5.4</version>
-		<relativePath/>
+		<relativePath />
 	</parent>
 	<groupId>com.acord</groupId>
-	<artifactId>acord-enterprize</artifactId>
+	<artifactId>acord-uganda</artifactId>
+	<packaging>jar</packaging>
 	<version>1.0.0</version>
-	<name>acord-enterprize</name>
-	<description>Acord Uganda Web Application</description>
+	<name>acord-uganda</name>
+	<description>Acord Uganda Application</description>
 	<properties>
 		<java.version>11</java.version>
 		<tomcat.embed.jasper.version>9.0.44</tomcat.embed.jasper.version>
@@ -19,6 +20,7 @@
 		<validation.api.version>2.0.1.Final</validation.api.version>
 		<bootstrap.version>4.0.0-2</bootstrap.version>
 		<webjars-locator.version>0.30</webjars-locator.version>
+		<launch4j.version>2.1.2</launch4j.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -100,6 +102,61 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.akathist.maven.plugins.launch4j</groupId>
+				<artifactId>launch4j-maven-plugin</artifactId>
+				<version>${launch4j.version}</version>
+				<executions>
+					<execution>
+						<id>l4j-gui</id>
+						<phase>package</phase>
+						<goals>
+							<goal>launch4j</goal>
+						</goals>
+						<configuration>
+							<headerType>gui</headerType>
+							<outfile>target/acord-uganda.exe</outfile>
+							<jar>target/acord-uganda-1.0.0.jar</jar>
+							<icon>acord.ico</icon>
+							<errTitle>acord-uganda</errTitle>
+							<classPath>
+								<mainClass>com.acord</mainClass>
+							</classPath>
+							<jre>
+								<minVersion>1.8.0</minVersion>
+							</jre>
+							<versionInfo>
+								<fileVersion>1.2.3.4</fileVersion>
+								<txtFileVersion>1.0.0</txtFileVersion>
+								<fileDescription>Acord Uganda Application</fileDescription>
+								<copyright>Copyright © Acord Uganda</copyright>
+								<productVersion>4.3.2.1</productVersion>
+								<txtProductVersion>1.0.0</txtProductVersion>
+								<productName>Acord-Uganda</productName>
+								<internalName>acord-uganda</internalName>
+								<originalFilename>original.exe</originalFilename>
+							</versionInfo>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>assembly.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

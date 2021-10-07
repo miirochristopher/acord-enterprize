@@ -6,12 +6,12 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication(scanBasePackages = "com.acord")
-public class AcordEnterprizeApplication extends SpringBootServletInitializer {
+public class AcordUgandaApplication extends SpringBootServletInitializer {
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(AcordEnterprizeApplication.class);
+		return builder.sources(AcordUgandaApplication.class);
 	}
 	public static void main(String[] args) {
-		SpringApplication.run(AcordEnterprizeApplication.class, args);
+		SpringApplication.run(AcordUgandaApplication.class, args);
 	}
 }

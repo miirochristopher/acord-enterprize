@@ -1,8 +1,8 @@
 
-#Go to acord-enterprize/
+#Go to acord-uganda/
 
-cd acord-enterprize/
+cd acord-uganda/
 
 mvn clean install
 
-mvn jetty:run
+mvn spring-boot:run

@@ -14,12 +14,14 @@
 	<name>acord-uganda</name>
 	<description>Acord Uganda Application</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<tomcat.embed.jasper.version>9.0.44</tomcat.embed.jasper.version>
 		<jstl.version>1.2</jstl.version>
 		<validation.api.version>2.0.1.Final</validation.api.version>
 		<bootstrap.version>4.0.0-2</bootstrap.version>
 		<webjars-locator.version>0.30</webjars-locator.version>
+		<maven.jar.plugin>3.2.0</maven.jar.plugin>
+		<maven.dependency.plugin.version>3.2.0</maven.dependency.plugin.version>
 		<launch4j.version>2.1.2</launch4j.version>
 	</properties>
 	<dependencies>
@@ -104,6 +106,34 @@
 				</configuration>
 			</plugin>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${maven.dependency.plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>${maven.jar.plugin}</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>dependency/</classpathPrefix>
+							<mainClass>com.acord.AcordUgandaApplication</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>com.akathist.maven.plugins.launch4j</groupId>
 				<artifactId>launch4j-maven-plugin</artifactId>
 				<version>${launch4j.version}</version>
@@ -121,7 +151,7 @@
 							<icon>acord.ico</icon>
 							<errTitle>acord-uganda</errTitle>
 							<classPath>
-								<mainClass>com.acord</mainClass>
+								<mainClass>com.acord.AcordUgandaApplication</mainClass>
 							</classPath>
 							<jre>
 								<minVersion>1.8.0</minVersion>

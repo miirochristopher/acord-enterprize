@@ -56,7 +56,7 @@ public class Beneficiary {
 	private String district;
 
 	@Column(name = "sub_county")
-	private String subCounty;
+	private String subcounty;
 
 	@Column(name = "parish")
 	private String parish;

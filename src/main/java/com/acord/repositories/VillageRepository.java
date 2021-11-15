@@ -1,8 +1,8 @@
 package com.acord.repositories;
 
-import com.acord.entity.Beneficiary;
+import com.acord.entity.Village;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BeneficiaryRepository extends JpaRepository<Beneficiary, Long> {}
+public interface VillageRepository extends JpaRepository<Village, Long> {}

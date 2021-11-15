@@ -13,7 +13,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**", "/resources/**", "/h2/**", "/webjars/**");
+		web.ignoring().antMatchers("/", "/resources/**", "/h2/**", "/webjars/**");
 	}
 
 	@Override

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Acord Uganda</title>
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " th:rel="stylesheet"/>
 </head>
 <body>
 
@@ -11,9 +11,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary static-top">
     <div class="container">
         <a class="navbar-brand" href="/beneficiary/list">Acord Uganda</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
+        <button aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                data-target="#navbarResponsive"
+                data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -32,10 +32,11 @@
         </div>
     </div>
 </nav>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-10 mt-5 mb-5">
-            <table id="example" class="table table-bordered" style="width: 100%">
+            <table class="table table-bordered" id="example" style="width: 100%">
                 <thead>
                 <tr>
                     <th>FIRST NAME</th>
@@ -50,28 +51,60 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="beneficiary : ${beneficiaries.page}">
-                    <td th:text="${beneficiary.firstName}">FIRST NAME</td>
-                    <td th:text="${beneficiary.lastName}">LAST NAME</td>
-                    <td th:text="${beneficiary.gender}">GENDER</td>
-                    <td th:text="${beneficiary.age}">AGE</td>
-                    <td th:text="${beneficiary.contact}">CONTACT</td>
-                    <td th:text="${beneficiary.village}">ADDRESS</td>
-                    <td th:text="${beneficiary.healthFacility}">HEALTH FACILITY</td>
-                    <td><a class="btn btn-sm btn-primary" th:href="@{/beneficiary/edit/{id}(id=${beneficiary.id})}">Edit</a></td>
-                    <td><a class="btn btn-sm btn-danger" th:href="@{/beneficiary/delete/{id}(id=${beneficiary.id})}">Delete</a></td>
-                </tr>
+                    <tr th:each="beneficiary : ${beneficiaries.page}">
+                        <td th:text="${beneficiary.firstName}">FIRST NAME</td>
+                        <td th:text="${beneficiary.lastName}">LAST NAME</td>
+                        <td th:text="${beneficiary.gender}">GENDER</td>
+                        <td th:text="${beneficiary.age}">AGE</td>
+                        <td th:text="${beneficiary.contact}">CONTACT</td>
+                        <td th:text="${beneficiary.village}">ADDRESS</td>
+                        <td th:text="${beneficiary.healthFacility}">HEALTH FACILITY</td>
+                        <td><a class="btn btn-sm btn-primary" th:href="@{/beneficiary/edit/{id}(id=${beneficiary.id})}">Edit</a>
+                        </td>
+                        <td>
+                            <a class="btn btn-sm btn-danger" data-target="#modal-warning" data-toggle="modal"
+                               th:attr="data-target='#modal-warning'+${beneficiary.id}">
+                                Delete
+                            </a>
+                        </td>
+                        <td>
+                            <div class="modal modal-warning fade in" th:id="modal-warning+${beneficiary.id }">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            <h5 class="modal-title">Delete Beneficiary</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h4 class="text-danger">Are you sure you want to delete this Beneficiary?</h4>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button class="btn btn-outline pull-left" data-dismiss="modal" type="button">Close
+                                            </button>
+                                            <a class="btn btn-outline" th:href="@{/beneficiary/delete/{id}(id=${beneficiary.id})}"
+                                               type="button">
+                                                <i class="fa fa-check"></i>&nbsp;Yes
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
             <nav aria-label="Page navigation" class="paging">
                 <ul class="pagination" th:if="${beneficiaries.page.totalPages > 1}">
                     <li class="page-item" th:classappend="${!beneficiaries.paging.isPrevEnabled()? 'disabled' : ''}">
-                        <a class="page-link" th:href="@{'/?pageNumber=' + ${beneficiaries.paging.pageNumber - 1}}"
-                           tabindex="-1">Previous</a>
+                        <a class="page-link" tabindex="-1"
+                           th:href="@{'/?pageNumber=' + ${beneficiaries.paging.pageNumber - 1}}">Previous</a>
                     </li>
                     <th:block th:each="item : ${beneficiaries.paging.getItems()}">
-                        <li class="page-item" th:classappend="${item.index == beneficiaries.paging.pageNumber? 'active' : ''}"
+                        <li class="page-item"
+                            th:classappend="${item.index == beneficiaries.paging.pageNumber? 'active' : ''}"
                             th:if="${item.pageItemType.name() == 'PAGE'}">
                             <a class="page-link" th:href="@{'/?pageNumber=' + ${item.index}}"
                                th:text="${item.index}"></a>
